@@ -135,4 +135,28 @@ if uploaded_file is not None:
         cluster_stats = df.groupby('Cluster').size().reset_index(name='Count')
         st.write(cluster_stats)
 
+    elif task == "Prediction":
+        prediction_method = st.selectbox("Choose a prediction method", ["None", "Logistic Regression", "Random Forest"])
+
+        target_column = st.selectbox("Select the target column", df.columns)
+        if target_column:
+            X = df.drop(columns=[target_column])
+            y = df[target_column]
+
+            X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+            if prediction_method == "Logistic Regression":
+                lr = LogisticRegression()
+                lr.fit(X_train, y_train)
+                predictions = lr.predict(X_test)
+                st.write("Logistic Regression completed")
+            elif prediction_method == "Random Forest":
+                rf = RandomForestClassifier()
+                rf.fit(X_train, y_train)
+                predictions = rf.predict(X_test)
+                st.write("Random Forest completed")
+
+            st.write("Classification Report:")
+            st.text(classification_report(y_test, predictions))
+
     
