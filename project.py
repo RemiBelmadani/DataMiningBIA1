@@ -93,4 +93,46 @@ if uploaded_file is not None:
     st.write("Data after normalization:")
     st.dataframe(df.head())
 
+    task = st.selectbox("Choose a task", ["None", "Clustering", "Prediction"])
+
+    if task == "Clustering":
+        clustering_method = st.selectbox("Choose a clustering method", ["None", "K-Means", "DBSCAN"])
+
+        if clustering_method == "K-Means":
+            num_clusters = st.number_input("Number of clusters (k)", min_value=1, max_value=10, value=3)
+            kmeans = KMeans(n_clusters=num_clusters)
+            clusters = kmeans.fit_predict(df)
+            df['Cluster'] = clusters
+            st.write("K-Means clustering completed")
+        elif clustering_method == "DBSCAN":
+            eps_value = st.number_input("Epsilon (eps)", min_value=0.1, max_value=10.0, value=0.5)
+            min_samples_value = st.number_input("Minimum samples", min_value=1, max_value=10, value=5)
+            dbscan = DBSCAN(eps=eps_value, min_samples=min_samples_value)
+            clusters = dbscan.fit_predict(df)
+            df['Cluster'] = clusters
+            st.write("DBSCAN clustering completed")
+
+        st.write("Data with clusters:")
+        st.dataframe(df.head())
+
+        # Visualization of clusters
+        st.subheader("Cluster Visualization")
+
+        pca = PCA(2)
+        pca_result = pca.fit_transform(df.drop(columns=['Cluster']))
+        df['PCA1'] = pca_result[:, 0]
+        df['PCA2'] = pca_result[:, 1]
+
+        fig, ax = plt.subplots()
+        scatter = ax.scatter(df['PCA1'], df['PCA2'], c=df['Cluster'], cmap='viridis')
+        legend = ax.legend(*scatter.legend_elements(), title="Clusters")
+        ax.add_artist(legend)
+        st.pyplot(fig)
+
+        # Cluster statistics
+        st.subheader("Cluster Statistics")
+
+        cluster_stats = df.groupby('Cluster').size().reset_index(name='Count')
+        st.write(cluster_stats)
+
     
