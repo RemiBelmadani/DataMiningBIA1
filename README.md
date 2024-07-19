@@ -4,6 +4,10 @@
 
 parkinsons_updrs.csv
 
+## Link Github
+
+https://github.com/RemiBelmadani/DataMiningBIA1
+
 ## Presentation video
 
 https://efrei365net.sharepoint.com/sites/test987/Documents%20partages/General/Recordings/R%C3%A9union%20dans%20%C2%AB%C2%A0General%C2%A0%C2%BB-20240719_160817-Enregistrement%20de%20la%20r%C3%A9union.mp4?web=1&referrer=Teams.TEAMS-WEB&referrerScenario=MeetingChicletGetLink.view
