@@ -274,24 +274,3 @@ if uploaded_file is not None:
             predictions = lr.predict(X_test)
             mse = mean_squared_error(y_test, predictions)
             st.write(f"Linear Regression Mean Squared Error: {mse}")
-
-        # Ensure Cluster column is dropped before performing PCA
-        if 'Cluster' in df.columns:
-            pca = PCA(n_components=2)
-            pca_result = pca.fit_transform(df.drop(columns=['Cluster']))
-        else:
-            pca = PCA(n_components=2)
-            pca_result = pca.fit_transform(df)
-        
-        pca_df = pd.DataFrame(data=pca_result, columns=['PCA1', 'PCA2'])
-        pca_df['Cluster'] = df['Cluster']
-
-        st.subheader("PCA Projection of Clusters")
-        fig, ax = plt.subplots()
-        scatter = ax.scatter(pca_df['PCA1'], pca_df['PCA2'], c=pca_df['Cluster'], cmap='viridis', s=50)
-        plt.xlabel('PCA Component 1')
-        plt.ylabel('PCA Component 2')
-        plt.title('PCA Projection of Clusters')
-        legend1 = ax.legend(*scatter.legend_elements(), title="Clusters")
-        ax.add_artist(legend1)
-        st.pyplot(fig)
