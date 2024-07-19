@@ -1,5 +1,13 @@
 # Interactive Data Analysis and Clustering Web Application
 
+## Dataset 
+
+parkinsons_updrs.csv
+
+## Presentation video
+
+https://efrei365net.sharepoint.com/sites/test987/Documents%20partages/General/Recordings/R%C3%A9union%20dans%20%C2%AB%C2%A0General%C2%A0%C2%BB-20240719_160817-Enregistrement%20de%20la%20r%C3%A9union.mp4?web=1&referrer=Teams.TEAMS-WEB&referrerScenario=MeetingChicletGetLink.view
+
 ## Description
 
 This project is an interactive web application using Streamlit to analyze, clean and visualize data. The application implement clustering algorithms to group similiar object in the dataset. The application is developed using Streamlit and offers various features for mining and processing data from a file to import.
